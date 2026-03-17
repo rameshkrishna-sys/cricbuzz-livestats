@@ -13,16 +13,16 @@ This project provides real-time cricket match updates, player statistics, and ad
 
 
 ### Live match
-![Live Score](screenshot/live_match.png)
+![Live Score](screenshot/live_match.jpg)
 
 ### Player Profile
-![Player-Profile](screenshot/top_players.png)
+![Player-Profile](screenshot/top_players.jpg)
 
 ### SQL Analysis
-![Sql Queries](screenshot/sql_analytics.png)
+![Sql Queries](screenshot/sql_analytics.jpg)
 
 ### CRUD
-![CRUD operations](screenshot/crud_operations.png)
+![CRUD operations](screenshot/crud_operations.jpg)
 
 
 📌 Project Features
