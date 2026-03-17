@@ -106,8 +106,7 @@ Cricbuzz-LiveStats
 │   ├── CRUD_Operations.py
 │
 ├── utils/
-│   ├── db_connection.py
-│   
+│   ├── db_connection.py  
 │
 ├── requirements.txt
 └── README.md
@@ -163,12 +162,7 @@ streamlit run main.py
 * Educational SQL Learning
 * Sports Data Analysis
 
----
 
-👨‍💻 Author
-
-**Ramesh krishna **
-Python Developer | Data Analytics | SQL
 
 ---
 
