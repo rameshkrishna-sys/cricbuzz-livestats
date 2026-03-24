@@ -4,6 +4,7 @@ import pandas as pd
 import os
 from dotenv import load_dotenv
 from utils.db_connection import get_connection
+from config import Config
 
 
 load_dotenv()
@@ -11,17 +12,17 @@ load_dotenv()
 API_KEY = os.getenv("RAPIDAPI_KEY")
 
 HEADERS = {
-    "x-rapidapi-key": "7cde9c129fmsh43ac0b206d50ebdp121f9cjsnfa25cdc2fd16",
-    "x-rapidapi-host": "cricbuzz-cricket.p.rapidapi.com"
+    "x-rapidapi-key": Config.RAPIDAPI_KEY,
+    "x-rapidapi-host": Config.RAPIDAPI_HOST
 }
 
 BASE_URL = "https://cricbuzz-cricket.p.rapidapi.com"
 
 
 
-# API FUNCTIONS (CACHED)
+# API FUNCTIONS 
 
-
+#CACHED
 @st.cache_data
 def search_players(name):
 
@@ -61,10 +62,6 @@ def get_player_stats(player_id, stat_type):
     return {}
 
 
-
-# JSON → TABLE
-
-
 def parse_stats_table(stats_json):
 
     if "headers" not in stats_json or "values" not in stats_json:
@@ -82,15 +79,13 @@ def parse_stats_table(stats_json):
     return df
 
 
-
-
-#  STREAMLIT PAGE 
+#STREAMLIT PAGE 
 
 def show_player_stats():
 
     st.title("📊 Player Profile")
 
-    # SEARCH BOX WITH EXAMPLE TEXT
+    #SEARCH BOX
     search = st.text_input(
         "Search Player",
         placeholder="e.g Rohit Sharma, Virat Kohli, Joe Root"
@@ -115,7 +110,7 @@ def show_player_stats():
 
     details = get_player_details(player_id)
 
-    # ---------------- PLAYER HEADER ----------------
+    #PLAYER HEADER 
 
     col1, col2 = st.columns([1,3])
 
@@ -133,13 +128,13 @@ def show_player_stats():
         st.write(f"Batting Style: {details.get('bat','N/A')}")
         st.write(f"Bowling Style: {details.get('bowl','N/A')}")
 
-    # ---------------- TABS ----------------
+    #TABS 
 
     tab1, tab2, tab3 = st.tabs(
         ["👤 Profile", "🏏 Batting Stats", "⚡ Bowling Stats"]
     )
 
-# ---------------- PROFILE TAB ----------------
+#PROFILE TAB 
 
     with tab1:
 
@@ -147,7 +142,6 @@ def show_player_stats():
 
         col1, col2, col3 = st.columns(3)
 
-        # -------- Cricket Details --------
         with col1:
             st.markdown("### 🏏 Cricket Details")
 
@@ -156,7 +150,6 @@ def show_player_stats():
             st.write("Bowling:", details.get("bowl", "N/A"))
             st.write("International Team:", player.get("teamName", "N/A"))
 
-        # -------- Personal Details --------
         with col2:
             st.markdown("### 📍 Personal Details")
 
@@ -164,7 +157,6 @@ def show_player_stats():
             st.write("Birth Place:", details.get("birthPlace", "N/A"))
             st.write("Height:", details.get("height", "N/A"))
 
-        # -------- Teams Played --------
         with col3:
             st.markdown("### 🏆 Teams Played For")
 
@@ -184,7 +176,7 @@ def show_player_stats():
                 f"🔗 **Full Profile:** https://www.cricbuzz.com/profiles/{player['id']}"
             )
 
-    # ---------------- BATTING TAB ----------------
+    #BATTING TAB 
 
     with tab2:
 
@@ -232,7 +224,7 @@ def show_player_stats():
             except:
                 pass
 
-    # ---------------- BOWLING TAB ----------------
+    #BOWLING TAB 
 
     with tab3:
 
@@ -280,7 +272,7 @@ def show_player_stats():
                 pass
 
 
-    # ---------------- SAVE PLAYER TO DATABASE ----------------
+    #SAVE PLAYER TO DATABASE 
 
     if st.button("Save Player To Database"):
 
